@@ -2,18 +2,19 @@ package logger
 
 import (
 	"fmt"
+	"os"
+	"time"
+
 	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
 	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
-	"os"
-	"time"
 )
 
 func LoggerToFile(errs string) {
-	fileName := "E:/20210425/4f466b1a-3b05-401a-b3de-1c0fa0651f23/wyf/go/src/sina/logger/logs.log"
-	src,err := os.OpenFile(fileName, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
+	fileName := "log/logs.log"
+	src, err := os.OpenFile(fileName, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
 	if err != nil {
-		fmt.Println("err",err)
+		fmt.Println("err", err)
 	}
 
 	logger := logrus.New()
@@ -21,9 +22,9 @@ func LoggerToFile(errs string) {
 
 	logger.SetLevel(logrus.DebugLevel)
 
-	logWriter,err := rotatelogs.New(
+	logWriter, err := rotatelogs.New(
 		// 分割后的文件名称
-		fileName + ".%Y%m%d.log",
+		fileName+".%Y%m%d.log",
 
 		// 生成软链，指向最新日志文件
 		rotatelogs.WithLinkName(fileName),
@@ -33,7 +34,7 @@ func LoggerToFile(errs string) {
 
 		// 设置日志切割时间间隔(1天)
 		rotatelogs.WithRotationTime(24*time.Hour),
-		)
+	)
 	writeMap := lfshook.WriterMap{
 		logrus.InfoLevel:  logWriter,
 		logrus.FatalLevel: logWriter,
@@ -43,12 +44,12 @@ func LoggerToFile(errs string) {
 		logrus.PanicLevel: logWriter,
 	}
 	lfHook := lfshook.NewHook(writeMap, &logrus.JSONFormatter{
-		TimestampFormat:"2006-01-02 15:04:05",
+		TimestampFormat: "2006-01-02 15:04:05",
 	})
 	logger.AddHook(lfHook)
 	startTime := time.Now()
 	logger.WithFields(logrus.Fields{
-		"start_time"  : startTime,
-		"err"      : errs,
+		"start_time": startTime,
+		"err":        errs,
 	}).Error()
 }

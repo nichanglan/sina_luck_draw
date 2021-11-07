@@ -1,0 +1,17 @@
+db:
+  host: 127.0.0.1
+  port: 3306
+  name: sina_draw
+  user: root
+  password: xxx
+sina:
+  sub: xx
+  uid: 12
+period: 900
+notify_period: 2592000
+email:
+  from: 22@qq.com
+  password: xxx
+  server: smtp.qq.com
+  port: 25
+  to: 33@qq.com

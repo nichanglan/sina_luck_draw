@@ -71,7 +71,6 @@ func InitDB() {
 		dbConfig["DB_NAME"],
 		dbConfig["DB_CHARSET"],
 	)
-	fmt.Println("------DB_PREFIX----------", dbConfig["DB_PREFIX"])
 	Db, DbErr = gorm.Open(mysql.Open(dbDSN), &gorm.Config{
 		NamingStrategy: schema.NamingStrategy{
 			TablePrefix:   dbConfig["DB_PREFIX"].(string),

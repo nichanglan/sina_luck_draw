@@ -14,6 +14,8 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+// TODO: SUB 自动更新？？？
+
 func main() {
 	go Notify()
 	for {

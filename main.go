@@ -20,7 +20,7 @@ func main() {
 		run()
 		notify.C.GlobalStartTime = notify.C.GlobalEndTime
 		notify.C.GlobalStartTime += notify.C.Offset
-		time.Sleep(time.Duration(c.NotiftPeriod * time.Second.Nanoseconds()))
+		time.Sleep(time.Duration(c.Period * time.Second.Nanoseconds()))
 	}
 }
 
@@ -42,7 +42,7 @@ func Notify() {
 	for {
 		notify.DrawNotify()
 		fmt.Println("waiting next notify period...............")
-		time.Sleep(time.Duration(c.Period * time.Second.Nanoseconds()))
+		time.Sleep(time.Duration(c.NotiftPeriod * time.Second.Nanoseconds()))
 	}
 }
 
